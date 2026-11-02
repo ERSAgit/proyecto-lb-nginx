@@ -1,0 +1,22 @@
+# Prueba de 1000 usuarios concurrentes durante 60 segundos.
+# Los 1000 usuarios virtuales se crean en una rampa de 10 s y cada uno
+# hace 55 peticiones con 1 s de pausa entre ellas, así permanecen
+# activos al mismo tiempo durante aproximadamente 60 s.
+config:
+  target: "http://nginx"
+  phases:
+    - name: "Rampa hasta 1000 usuarios"
+      duration: 10
+      arrivalRate: 10
+      rampTo: 190
+  http:
+    timeout: 10
+
+scenarios:
+  - name: "Usuario que consulta la API durante 60 s"
+    flow:
+      - loop:
+          - get:
+              url: "/api/work"
+          - think: 1
+        count: 55

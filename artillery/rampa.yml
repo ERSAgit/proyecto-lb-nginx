@@ -1,0 +1,25 @@
+# Escenario con ramp-up progresivo:
+# calentamiento -> rampa de subida -> carga sostenida
+config:
+  target: "http://nginx"
+  phases:
+    - name: "Calentamiento"
+      duration: 30
+      arrivalRate: 5
+    - name: "Rampa de subida"
+      duration: 60
+      arrivalRate: 5
+      rampTo: 100
+    - name: "Carga sostenida"
+      duration: 30
+      arrivalRate: 100
+  http:
+    timeout: 10
+
+scenarios:
+  - name: "Visitar la página y llamar a la API"
+    flow:
+      - get:
+          url: "/"
+      - get:
+          url: "/api/work"
