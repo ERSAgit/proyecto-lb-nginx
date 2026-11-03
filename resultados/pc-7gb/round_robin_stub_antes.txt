@@ -1,0 +1,4 @@
+Active connections: 2 
+server accepts handled requests
+ 6325 6325 12665 
+Reading: 0 Writing: 1 Waiting: 1 
